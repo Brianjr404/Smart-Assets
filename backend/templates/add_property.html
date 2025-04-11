@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Property - House Price Prediction App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            color: #555555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #2a9d8f;
+            border: none;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: #21867a;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: #2a9d8f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Add Property</h1>
+        <form method="POST" action="/add-property">
+            <label for="bedrooms">Bedrooms:</label>
+            <input type="number" id="bedrooms" name="bedrooms" min="1" required>
+
+            <label for="bathrooms">Bathrooms:</label>
+            <input type="number" id="bathrooms" name="bathrooms" min="1" required>
+
+            <label for="size_sqft">Size (sqft):</label>
+            <input type="number" id="size_sqft" name="size_sqft" min="100" required>
+
+            <label for="location">Location:</label>
+            <select id="location" name="location" required>
+                <option value="" disabled selected>Select a county</option>
+                {% for county in counties %}
+                <option value="{{ county }}">{{ county }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="property_type">Property Type:</label>
+            <select id="property_type" name="property_type" required>
+                <option value="" disabled selected>Select a property type</option>
+                {% for property_type in property_types %}
+                <option value="{{ property_type }}">{{ property_type }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="price">Price (KSh):</label>
+            <input type="number" id="price" name="price" min="1" required>
+
+            <button type="submit">Add Property</button>
+        </form>
+        <div class="back-link">
+            <a href="/">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

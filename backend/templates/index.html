@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - House Price Prediction App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+        .user-info {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .prediction {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e0f7fa;
+            border: 1px solid #b2ebf2;
+            border-radius: 5px;
+            color: #00796b;
+            font-weight: bold;
+            text-align: center;
+        }
+        .logout {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .logout a {
+            color: #ffffff;
+            background-color: #d32f2f;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .logout a:hover {
+            background-color: #b71c1c;
+        }
+        .add-property {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .add-property a {
+            color: #ffffff;
+            background-color: #2a9d8f;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .add-property a:hover {
+            background-color: #21867a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the House Price Prediction App</h1>
+        
+        <!-- User Information -->
+        <div class="user-info">
+            <p><strong>Logged in as:</strong> {{ user['name'] }} ({{ user['username'] }})</p>
+            <p><strong>Email:</strong> {{ user['email'] }}</p>
+        </div>
+
+        <!-- Prediction Message -->
+        {% if prediction_text %}
+        <div class="prediction">
+            {{ prediction_text }}
+        </div>
+        {% endif %}
+
+        <!-- Add Property Button -->
+        <div class="add-property">
+            <a href="{{ url_for('add_property') }}">Add Property</a>
+        </div>
+
+        <!-- Predict House Price Button -->
+        <div class="add-property">
+            <a href="{{ url_for('predict') }}">Predict House Price</a>
+        </div>
+
+        <!-- Logout Button -->
+        <div class="logout">
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

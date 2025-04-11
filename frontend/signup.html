@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup</title>
+  <style>
+    body { font-family: Arial; padding: 50px; max-width: 400px; margin: auto; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <h2>Signup</h2>
+  <input type="text" id="name" placeholder="Full Name" />
+  <input type="text" id="email" placeholder="Email" />
+  <input type="password" id="password" placeholder="Password" />
+  <button onclick="signup()">Sign Up</button>
+  <p>Already have an account? <a href="login.html">Login</a></p>
+
+  <script>
+    function signup() {
+      // TODO: Replace with real API call
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      console.log("Signing up:", name, email);
+      window.location.href = "login.html"; // simulate signup
+    }
+  </script>
+</body>
+</html>
