@@ -25,9 +25,48 @@ A machine learning-based system for predicting property prices with a user-frien
 
 ## Prerequisites
 
-- Python 3.x
-- Git
-- Git LFS (for handling large model files)
+### Required Software
+
+1. **Git** - Version control system
+   - Windows: Download from https://git-scm.com/download/win
+   - Linux: `sudo apt install git` (Ubuntu/Debian) or `sudo dnf install git` (Fedora)
+   - Mac: `xcode-select --install` or download from https://git-scm.com/download/mac
+   - Verify installation: `git --version`
+
+2. **Git LFS** - For handling large model files
+   - Windows: Download from https://git-lfs.github.com/
+   - Linux: 
+     ```bash
+     # Ubuntu/Debian
+     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+     sudo apt-get install git-lfs
+     
+     # Fedora
+     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
+     sudo dnf install git-lfs
+     ```
+   - Mac: `brew install git-lfs` or download from https://git-lfs.github.com/
+   - Verify installation: `git lfs install`
+
+3. **Python 3.x** - Programming language
+   - Windows: Download from https://www.python.org/downloads/
+   - Linux: `sudo apt install python3 python3-pip` (Ubuntu/Debian) or `sudo dnf install python3 python3-pip` (Fedora)
+   - Mac: Download from https://www.python.org/downloads/macos/ or `brew install python`
+   - Verify installation: `python --version` or `python3 --version`
+
+### Verification Steps
+
+After installing all prerequisites, verify your setup:
+
+1. Open Command Prompt/PowerShell (Windows) or Terminal (Linux/Mac)
+2. Run these commands to verify installations:
+   ```bash
+   git --version
+   git lfs install
+   python --version  # or python3 --version
+   ```
+
+If any command is not recognized, please reinstall the corresponding software.
 
 ## Using the Command Line
 
