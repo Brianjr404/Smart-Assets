@@ -3,103 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - House Price Prediction App</title>
+    <title>Dashboard - Smart Assets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --error-color: #ef4444;
+            --success-color: #22c55e;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        h1 {
+
+        .dashboard-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo {
             text-align: center;
-            color: #333333;
+            margin-bottom: 2rem;
         }
+
+        .logo h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
         .user-info {
-            margin-bottom: 20px;
-            text-align: center;
+            background-color: #f0f9ff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid #e0f2fe;
         }
-        .prediction {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #e0f7fa;
-            border: 1px solid #b2ebf2;
-            border-radius: 5px;
-            color: #00796b;
-            font-weight: bold;
-            text-align: center;
+
+        .user-info p {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
         }
-        .logout {
-            text-align: center;
-            margin-top: 20px;
+
+        .user-info strong {
+            color: var(--primary-color);
         }
-        .logout a {
-            color: #ffffff;
-            background-color: #d32f2f;
-            padding: 10px 20px;
+
+        .action-buttons {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-button {
+            display: block;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        .logout a:hover {
-            background-color: #b71c1c;
-        }
-        .add-property {
+            border-radius: 8px;
             text-align: center;
-            margin-top: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
-        .add-property a {
-            color: #ffffff;
-            background-color: #2a9d8f;
-            padding: 10px 20px;
+
+        .action-button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .logout-button {
+            display: block;
+            padding: 1rem;
+            background-color: #ef4444;
+            color: white;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
-        .add-property a:hover {
-            background-color: #21867a;
+
+        .logout-button:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .flash-messages {
+            margin-bottom: 1.5rem;
+        }
+
+        .flash-messages ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .flash-messages li {
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .flash-messages .error {
+            background-color: #fee2e2;
+            color: var(--error-color);
+            border: 1px solid #fecaca;
+        }
+
+        .flash-messages .success {
+            background-color: #dcfce7;
+            color: var(--success-color);
+            border: 1px solid #bbf7d0;
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the House Price Prediction App</h1>
-        
-        <!-- User Information -->
+    <div class="dashboard-container">
+        <div class="logo">
+            <h1>Smart Assets</h1>
+            <p>Welcome to your dashboard</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    <ul>
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+
         <div class="user-info">
-            <p><strong>Logged in as:</strong> {{ user['name'] }} ({{ user['username'] }})</p>
+            <p><strong>Name:</strong> {{ user['name'] }}</p>
+            <p><strong>Username:</strong> {{ user['username'] }}</p>
             <p><strong>Email:</strong> {{ user['email'] }}</p>
+            {% if user['is_admin'] %}
+                <p><strong>Role:</strong> Administrator</p>
+            {% endif %}
         </div>
 
-        <!-- Prediction Message -->
-        {% if prediction_text %}
-        <div class="prediction">
-            {{ prediction_text }}
-        </div>
-        {% endif %}
-
-        <!-- Add Property Button -->
-        <div class="add-property">
-            <a href="{{ url_for('add_property') }}">Add Property</a>
+        <div class="action-buttons">
+            <a href="{{ url_for('predict') }}" class="action-button">Predict House Price</a>
+            <a href="{{ url_for('add_property') }}" class="action-button">Add Property Data</a>
+            {% if user['is_admin'] %}
+                <a href="{{ url_for('ml_status') }}" class="action-button">ML Model Status</a>
+            {% endif %}
         </div>
 
-        <!-- Predict House Price Button -->
-        <div class="add-property">
-            <a href="{{ url_for('predict') }}">Predict House Price</a>
-        </div>
-
-        <!-- Logout Button -->
-        <div class="logout">
-            <a href="{{ url_for('logout') }}">Logout</a>
-        </div>
+        <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
     </div>
 </body>
 </html>

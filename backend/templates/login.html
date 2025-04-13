@@ -3,95 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - House Price Prediction App</title>
+    <title>Login - Smart Assets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --error-color: #ef4444;
+            --success-color: #22c55e;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            padding: 20px;
         }
+
         .login-container {
-            background-color: #ffffff;
-            padding: 20px 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             width: 100%;
+            max-width: 420px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
         }
-        h1 {
+
+        .login-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo {
             text-align: center;
-            color: #333333;
+            margin-bottom: 2rem;
         }
+
+        .logo h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
         label {
-            font-weight: bold;
-            margin-top: 10px;
             display: block;
-            color: #555555;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.9rem;
         }
+
         input {
             width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #cccccc;
-            border-radius: 5px;
-            font-size: 16px;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
         }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
         button {
             width: 100%;
-            padding: 10px;
-            margin-top: 20px;
-            background-color: #2a9d8f;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
             border: none;
-            border-radius: 5px;
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: bold;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
         }
+
         button:hover {
-            background-color: #21867a;
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
         }
+
+        .flash-messages {
+            margin-bottom: 1.5rem;
+        }
+
+        .flash-messages ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .flash-messages li {
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .flash-messages .error {
+            background-color: #fee2e2;
+            color: var(--error-color);
+            border: 1px solid #fecaca;
+        }
+
+        .flash-messages .success {
+            background-color: #dcfce7;
+            color: var(--success-color);
+            border: 1px solid #bbf7d0;
+        }
+
         .link {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
         }
+
         .link a {
+            color: var(--primary-color);
             text-decoration: none;
-            color: #2a9d8f;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
+
         .link a:hover {
+            color: var(--primary-hover);
             text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h1>Login</h1>
-        {% with messages = get_flashed_messages() %}
+        <div class="logo">
+            <h1>Smart Assets</h1>
+            <p>Predict property prices with AI</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
+                <div class="flash-messages">
+                    <ul>
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             {% endif %}
         {% endwith %}
-        <form method="POST" action="/login">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+        
+        <form method="POST" action="{{ form_action }}">
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required placeholder="Enter your username">
+            </div>
             
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
             
-            <button type="submit">Login</button>
+            <button type="submit">Sign In</button>
         </form>
 
-        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+        <div class="link">
+            <p>Don't have an account? <a href="{{ auth_switch_link }}">Create one</a></p>
+        </div>
     </div>
 </body>
 </html>
